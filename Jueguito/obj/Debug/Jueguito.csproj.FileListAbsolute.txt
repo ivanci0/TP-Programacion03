@@ -1,0 +1,12 @@
+c:\users\ivan\documents\visual studio 2015\Projects\Programacion-03\Jueguito\bin\Debug\Jueguito.exe.config
+C:\Users\Ivan\Documents\Visual Studio 2015\Projects\Programacion-03\Jueguito\bin\Debug\Jueguito.exe
+C:\Users\Ivan\Documents\Visual Studio 2015\Projects\Programacion-03\Jueguito\bin\Debug\Jueguito.pdb
+C:\Users\Ivan\Documents\Visual Studio 2015\Projects\Programacion-03\Jueguito\obj\Debug\Jueguito.csprojResolveAssemblyReference.cache
+C:\Users\Ivan\Documents\Visual Studio 2015\Projects\Programacion-03\Jueguito\obj\Debug\Jueguito.exe
+C:\Users\Ivan\Documents\Visual Studio 2015\Projects\Programacion-03\Jueguito\obj\Debug\Jueguito.pdb
+C:\Users\822\Desktop\Programacion-03\Jueguito\bin\Debug\Jueguito.exe.config
+C:\Users\822\Desktop\Programacion-03\Jueguito\obj\Debug\Jueguito.exe
+C:\Users\822\Desktop\Programacion-03\Jueguito\obj\Debug\Jueguito.pdb
+C:\Users\822\Desktop\Programacion-03\Jueguito\bin\Debug\Jueguito.exe
+C:\Users\822\Desktop\Programacion-03\Jueguito\bin\Debug\Jueguito.pdb
+C:\Users\822\Desktop\Programacion-03\Jueguito\obj\Debug\Jueguito.csprojResolveAssemblyReference.cache
