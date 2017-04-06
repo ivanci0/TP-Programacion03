@@ -8,17 +8,23 @@ namespace Jueguito
 {
     class Juego
     {
-        Jugador player01 = new Jugador("Ivan");
-        Enemigo enemigo01 = new Enemigo(10, 15);
-        Enemigo enemigo02 = new Enemigo(30, 15);
-        Enemigo enemigo03 = new Enemigo(40, 12);
-        Enemigo enemigo04 = new Enemigo(50, 10);
-        Obstaculo obs01 = new Obstaculo(20, 15);
-        Obstaculo obs02 = new Obstaculo(30, 10);
-        Obstaculo obs03 = new Obstaculo(40, 5);
-        Obstaculo obs04 = new Obstaculo(50, 3);
         bool jugando = true;
         ConsoleKeyInfo tecla;
+        Jugador player01 = new Jugador("Ivan");
+        Enemigo[] enemigos =
+            {
+            new Enemigo(20, 5),
+            new Enemigo(30, 10),
+            new Enemigo(40, 15),
+            new Enemigo(50, 19)
+        };
+        Obstaculo[] obstaculos = 
+            {
+            new Obstaculo(10, 5),
+            new Obstaculo(30, 15),
+            new Obstaculo(50, 10),
+            new Obstaculo(70, 15)
+        };
 
         public void Jugar()
         {
@@ -30,14 +36,14 @@ namespace Jueguito
 
                 // dibujado...
                 player01.Draw();
-                enemigo01.Draw();
-                enemigo02.Draw();
-                enemigo03.Draw();
-                enemigo04.Draw();
-                obs01.Draw();
-                obs02.Draw();
-                obs03.Draw();
-                obs04.Draw();
+                for (int i = 0; i < enemigos.Length; i++)
+                {
+                    enemigos[i].Draw();
+                }
+                for (int i = 0; i < obstaculos.Length; i++)
+                {
+                    obstaculos[i].Draw();
+                }
 
                 // inputs
                 if (Console.KeyAvailable)
@@ -63,20 +69,21 @@ namespace Jueguito
                             break;
                     }
                 }
-                enemigo01.MoverseAleatorio();
-                enemigo02.MoverseAleatorio();
-                enemigo03.MoverseAleatorio();
-                enemigo04.MoverseAleatorio();
+
+                for (int i = 0; i < enemigos.Length; i++)
+                {
+                    enemigos[i].MoverseAleatorio();
+                }
 
                 // colisiones
-                Colision(enemigo01);
-                Colision(enemigo02);
-                Colision(enemigo03);
-                Colision(enemigo04);
-                Colision(obs01);
-                Colision(obs02);
-                Colision(obs03);
-                Colision(obs04);
+                for (int i = 0; i < enemigos.Length; i++)
+                {
+                    Colision(enemigos[i]);
+                }
+                for (int i = 0; i < obstaculos.Length; i++)
+                {
+                    Colision(obstaculos[i]);
+                }
 
                 System.Threading.Thread.Sleep(150);
             }

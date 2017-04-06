@@ -8,6 +8,8 @@ namespace Jueguito
 {
     class Enemigo : DrawingObject
     {
+        private static Random genRand = new Random();
+
         public Enemigo()
         {
             Figure = 'O';
@@ -23,7 +25,6 @@ namespace Jueguito
 
         public void MoverseAleatorio()
         {
-            Random genRand = new Random();
             int random = genRand.Next(0,4);
             switch (random)
             {
