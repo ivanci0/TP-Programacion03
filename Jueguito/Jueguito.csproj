@@ -47,6 +47,7 @@
     <Compile Include="Enemigo.cs" />
     <Compile Include="Juego.cs" />
     <Compile Include="Jugador.cs" />
+    <Compile Include="Menu.cs" />
     <Compile Include="Obstaculo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

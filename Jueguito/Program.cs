@@ -11,7 +11,7 @@ namespace Jueguito
         static void Main(string[] args)
         {
             Juego Juego = new Juego();
-            Juego.Jugar();
+            Juego.Iniciar();
         }
     }
 }

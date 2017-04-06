@@ -11,6 +11,7 @@ namespace Jueguito
         bool jugando = true;
         ConsoleKeyInfo tecla;
         Jugador player01 = new Jugador("Ivan");
+        Menu menu = new Menu();
         Enemigo[] enemigos =
             {
             new Enemigo(20, 5),
@@ -25,6 +26,30 @@ namespace Jueguito
             new Obstaculo(50, 10),
             new Obstaculo(70, 15)
         };
+
+        public void Iniciar()
+        {
+            menu.Draw();
+            tecla = Console.ReadKey();
+            
+            switch (tecla.Key)
+            {
+                case ConsoleKey.NumPad1:
+                    Jugar();
+                    break;
+                case ConsoleKey.NumPad2:
+                    Salir();
+                    break;
+                default:
+                    // falta implementar
+                    break;
+            }
+        }
+
+        private void Salir()
+        {
+            Environment.Exit(0);
+        }
 
         public void Jugar()
         {
