@@ -8,30 +8,36 @@ namespace Jueguito
 {
     class Juego
     {
-        bool jugando = true;
+        bool jugando;
         ConsoleKeyInfo tecla;
-        Jugador player01 = new Jugador("Ivan");
         Menu menu = new Menu();
-        Enemigo[] enemigos =
-            {
-            new Enemigo(20, 5),
-            new Enemigo(30, 10),
-            new Enemigo(40, 15),
-            new Enemigo(50, 19)
-        };
-        Obstaculo[] obstaculos = 
-            {
-            new Obstaculo(10, 5),
-            new Obstaculo(30, 15),
-            new Obstaculo(50, 10),
-            new Obstaculo(70, 15)
-        };
+        private bool gana;
 
         public void Iniciar()
         {
             menu.Draw();
             tecla = Console.ReadKey();
             
+            switch (tecla.Key)
+            {
+                case ConsoleKey.NumPad1:
+                    Jugar();
+                    break;
+                case ConsoleKey.NumPad2:
+                    Salir();
+                    break;
+                default:
+                    // falta implementar
+                    break;
+            }
+        }
+
+        private void FinalizarJuego(bool _gana)
+        {
+            GameOver fin = new GameOver(_gana);
+            fin.Draw();
+            tecla = Console.ReadKey();
+
             switch (tecla.Key)
             {
                 case ConsoleKey.NumPad1:
@@ -53,6 +59,22 @@ namespace Jueguito
 
         public void Jugar()
         {
+            jugando = true;
+            Jugador player01 = new Jugador("Ivan");
+            Enemigo[] enemigos =
+            {
+                new Enemigo(20, 5),
+                new Enemigo(30, 10),
+                new Enemigo(40, 15),
+                new Enemigo(50, 19)
+            };
+            Obstaculo[] obstaculos =
+            {
+                new Obstaculo(10, 5),
+                new Obstaculo(30, 15),
+                new Obstaculo(50, 10),
+                new Obstaculo(70, 15)
+            };
             while (jugando)
             {
                 Console.Clear();
@@ -103,22 +125,24 @@ namespace Jueguito
                 // colisiones
                 for (int i = 0; i < enemigos.Length; i++)
                 {
-                    Colision(enemigos[i]);
+                    Colision(player01, enemigos[i]);
                 }
                 for (int i = 0; i < obstaculos.Length; i++)
                 {
-                    Colision(obstaculos[i]);
+                    Colision(player01, obstaculos[i]);
                 }
 
                 System.Threading.Thread.Sleep(150);
             }
+            FinalizarJuego(gana);
         }
 
-        public void Colision(DrawingObject obj)
+        public void Colision(DrawingObject obj1, DrawingObject obj2)
         {
-            if (player01.PosX == obj.PosX && player01.PosY == obj.PosY)
+            if (obj1.PosX == obj2.PosX && obj1.PosY == obj2.PosY)
             {
                 jugando = false;
+                gana = false;
             }
         }
     }
