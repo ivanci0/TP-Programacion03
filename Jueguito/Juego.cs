@@ -15,15 +15,31 @@ namespace Jueguito
 
         public void Iniciar()
         {
+            Console.WriteLine("Ingrese un mensaje de bienvenida: ");
+            string textoBienvenida = Convert.ToString(Console.ReadLine());
+            string pathString = @"c:\bienvenida.txt";
+            if (!System.IO.File.Exists(pathString))
+            {
+                System.IO.FileStream fs = System.IO.File.Create(pathString);   // falta terminar
+                System.IO.File.WriteAllText(pathString, textoBienvenida);
+            }
+            else
+            {
+                System.IO.File.WriteAllText(pathString, textoBienvenida);
+            }
+            // System.IO.File.WriteAllText(@"C:\Users\Public\TestFolder\WriteText.txt", textoBienvenida);
             menu.Draw();
             tecla = Console.ReadKey();
             
             switch (tecla.Key)
             {
                 case ConsoleKey.NumPad1:
-                    Jugar();
+                    Jugar(true);
                     break;
                 case ConsoleKey.NumPad2:
+                    Jugar(false);
+                    break;
+                case ConsoleKey.NumPad3:
                     Salir();
                     break;
                 default:
@@ -41,7 +57,7 @@ namespace Jueguito
             switch (tecla.Key)
             {
                 case ConsoleKey.NumPad1:
-                    Jugar();
+                    Jugar(true);
                     break;
                 case ConsoleKey.NumPad2:
                     Salir();
@@ -57,10 +73,11 @@ namespace Jueguito
             Environment.Exit(0);
         }
 
-        public void Jugar()
+        public void Jugar(bool unJugador)
         {
             jugando = true;
             Jugador player01 = new Jugador("Ivan");
+            Jugador player02 = new Jugador("otro", 20, 10);
             Enemigo[] enemigos =
             {
                 new Enemigo(20, 5),
@@ -78,11 +95,22 @@ namespace Jueguito
             while (jugando)
             {
                 Console.Clear();
-                Console.WriteLine($"Bienvenido {player01.Name}!!!");
+                if (unJugador)
+                {
+                    Console.WriteLine($"Bienvenido {player01.Name}!!!");
+                }
+                else
+                {
+                    Console.WriteLine("Bienvenidos!!");
+                }
                 Console.WriteLine("Usa las flechas para mover el personaje y para salir presiona otra tecla cualquiera");
 
                 // dibujado...
                 player01.Draw();
+                if (!unJugador)
+                {
+                    player02.Draw();
+                }
                 for (int i = 0; i < enemigos.Length; i++)
                 {
                     enemigos[i].Draw();
@@ -111,6 +139,18 @@ namespace Jueguito
                         case ConsoleKey.DownArrow:
                             player01.MoverAbajo();
                             break;
+                        case ConsoleKey.A:
+                            player02.MoverIzquierda();
+                            break;
+                        case ConsoleKey.W:
+                            player02.MoverArriba();
+                            break;
+                        case ConsoleKey.D:
+                            player02.MoverDerecha();
+                            break;
+                        case ConsoleKey.S:
+                            player02.MoverAbajo();
+                            break;
                         default:
                             jugando = false;
                             break;
@@ -126,10 +166,18 @@ namespace Jueguito
                 for (int i = 0; i < enemigos.Length; i++)
                 {
                     Colision(player01, enemigos[i]);
+                    if (!unJugador)
+                    {
+                        Colision(player02, enemigos[i]);
+                    }
                 }
                 for (int i = 0; i < obstaculos.Length; i++)
                 {
                     Colision(player01, obstaculos[i]);
+                    if (!unJugador)
+                    {
+                        Colision(player02, obstaculos[i]);
+                    }
                 }
 
                 System.Threading.Thread.Sleep(150);
