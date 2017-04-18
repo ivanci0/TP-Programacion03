@@ -18,6 +18,7 @@ namespace Jueguito
             Console.WriteLine("Ingrese un mensaje de bienvenida: ");
             string textoBienvenida = Convert.ToString(Console.ReadLine());
             string pathString = @"c:\bienvenida.txt";
+            /*
             if (!System.IO.File.Exists(pathString))
             {
                 System.IO.FileStream fs = System.IO.File.Create(pathString);   // falta terminar
@@ -27,6 +28,7 @@ namespace Jueguito
             {
                 System.IO.File.WriteAllText(pathString, textoBienvenida);
             }
+            */
             // System.IO.File.WriteAllText(@"C:\Users\Public\TestFolder\WriteText.txt", textoBienvenida);
             menu.Draw();
             tecla = Console.ReadKey();
@@ -104,6 +106,7 @@ namespace Jueguito
                     Console.WriteLine("Bienvenidos!!");
                 }
                 Console.WriteLine("Usa las flechas para mover el personaje y para salir presiona otra tecla cualquiera");
+                Console.WriteLine("Lives: " + player01.Lives);
 
                 // dibujado...
                 player01.Draw();
@@ -165,32 +168,42 @@ namespace Jueguito
                 // colisiones
                 for (int i = 0; i < enemigos.Length; i++)
                 {
-                    Colision(player01, enemigos[i]);
-                    if (!unJugador)
+                    if (Colision(player01, enemigos[i]))
                     {
-                        Colision(player02, enemigos[i]);
+                        player01.RestarVida();
+                        player01.MoveToPrevPos();
                     }
                 }
                 for (int i = 0; i < obstaculos.Length; i++)
                 {
-                    Colision(player01, obstaculos[i]);
-                    if (!unJugador)
+                    if (Colision(player01, obstaculos[i]))
                     {
-                        Colision(player02, obstaculos[i]);
+                        player01.RestarVida();
+                        player01.MoveToPrevPos();
                     }
                 }
 
                 System.Threading.Thread.Sleep(150);
+                if (player01.CheckGameOver())
+                {
+                    gana = false;
+                    FinalizarJuego(gana);
+                }
             }
-            FinalizarJuego(gana);
+            
         }
 
-        public void Colision(DrawingObject obj1, DrawingObject obj2)
+        public bool Colision(DrawingObject obj1, DrawingObject obj2)
         {
             if (obj1.PosX == obj2.PosX && obj1.PosY == obj2.PosY)
             {
-                jugando = false;
-                gana = false;
+                //jugando = false;
+
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
     }
