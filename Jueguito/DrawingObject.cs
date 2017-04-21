@@ -12,14 +12,15 @@ namespace Jueguito
         {
             Figure = '♥';
             PosX = 0;
-            PosY = 3;
+            PosY = 4;
         }
 
         // propiedades
         public char Figure { get; set; }
         public int PosX { get; set; }
         public int PosY { get; set; }
-
+        public enum Direction { Left, Right, Up, Down, None }
+        public Direction direction;
         // metodo
         public virtual void Draw()
         {

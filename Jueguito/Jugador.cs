@@ -18,6 +18,7 @@ namespace Jueguito
             Lives = 3;
             PrevPosX = PosX;
             PrevPosY = PosY;
+            direction = Direction.Right;
             //
         }
 
@@ -26,6 +27,7 @@ namespace Jueguito
         //nuevo
         public int Lives { get; set; }
         public int PrevPosX, PrevPosY;
+        public List<Bullet> Bullets = new List<Bullet>();
         //
 
         #region metodos
@@ -33,31 +35,45 @@ namespace Jueguito
         // de movimiento
         public void MoverDerecha()
         {
-            if (PosX < 80)
+            if (PosX < 79)
+            {
                 PrevPosX = PosX;
-            PrevPosY = PosY;
-            PosX++;
+                PrevPosY = PosY;
+                PosX++;
+                direction = Direction.Right;
+            }
         }
         public void MoverIzquierda()
         {
             if (PosX > 0)
+            {
                 PrevPosX = PosX;
-            PrevPosY = PosY;
-            PosX--;
+                PrevPosY = PosY;
+                PosX--;
+                direction = Direction.Left;
+            }
         }
         public void MoverArriba()
         {
-            if (PosY > 3)
+            if (PosY > 4)
+            {
+
+
                 PrevPosX = PosX;
-            PrevPosY = PosY;
-            PosY--;
+                PrevPosY = PosY;
+                PosY--;
+                direction = Direction.Up;
+            }
         }
         public void MoverAbajo()
         {
             if (PosY < 20)
+            {
                 PrevPosX = PosX;
-            PrevPosY = PosY;
-            PosY++;
+                PrevPosY = PosY;
+                PosY++;
+                direction = Direction.Down;
+            }
         }
         //nuevo
         public void RestarVida()
@@ -81,6 +97,12 @@ namespace Jueguito
         {
             PosX = PrevPosX;
             PosY = PrevPosY;
+        }
+
+        public void Shoot()
+        {
+            Bullet bullet = new Bullet(PosX,PosY,direction);
+            Bullets.Add(bullet);
         }
         //
         #endregion
