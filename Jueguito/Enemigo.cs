@@ -12,7 +12,7 @@ namespace Jueguito
 
         public Enemigo()
         {
-            Figure = 'O';
+            Figure = 'E';
             PosX = 0;
             PosY = 3;
         }

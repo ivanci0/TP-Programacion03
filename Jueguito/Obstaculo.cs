@@ -10,7 +10,7 @@ namespace Jueguito
     {
         public Obstaculo(int _posX = 0, int _posY = 3)
         {
-            Figure = 'W';
+            Figure = 'O';
             PosX = _posX;
             PosY = _posY;
         }

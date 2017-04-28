@@ -97,6 +97,13 @@ namespace Jueguito
                 new Obstaculo(50, 10),
                 new Obstaculo(70, 15)
             };
+            Item[] items =
+            {
+                new Item(),
+                new Item(),
+                new Item(),
+                new Item()
+            };
             while (jugando)
             {
                 Console.Clear();
@@ -125,6 +132,10 @@ namespace Jueguito
                 for (int i = 0; i < obstaculos.Length; i++)
                 {
                     obstaculos[i].Draw();
+                }
+                foreach (var item in items)
+                {
+                    item.Draw();
                 }
 
                 // inputs
