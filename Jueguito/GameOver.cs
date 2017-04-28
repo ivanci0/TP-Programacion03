@@ -53,7 +53,7 @@ namespace Jueguito
             Console.WriteLine("█        █        █ ▀▄     █    ▄▀  █  █     █");
             Console.SetCursorPosition(7, 9);
             Console.WriteLine("█        █▄▄▄▄▄▄  █   ▀▄   █▄▄▄▀    █   ▀▄▄▄▀ ");
-            Console.WriteLine("\n\n\n\n\t\t\t1 - Volver a jugar\n\t\t\t2 - Salir");
+            Console.WriteLine("\n\n\n\n\t\t\t1 - Volver a jugar\n\t\t\t2 - Dos jugadores\n\t\t\t3 - Salir");
         }
     }
 }

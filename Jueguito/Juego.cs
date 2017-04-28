@@ -15,9 +15,9 @@ namespace Jueguito
 
         public void Iniciar()
         {
-            Console.WriteLine("Ingrese un mensaje de bienvenida: ");
-            string textoBienvenida = Convert.ToString(Console.ReadLine());
-            string pathString = @"c:\bienvenida.txt";
+            //Console.WriteLine("Ingrese un mensaje de bienvenida: ");
+            //string textoBienvenida = Convert.ToString(Console.ReadLine());
+            //string pathString = @"c:\bienvenida.txt";
             /*
             if (!System.IO.File.Exists(pathString))
             {
@@ -62,6 +62,9 @@ namespace Jueguito
                     Jugar(true);
                     break;
                 case ConsoleKey.NumPad2:
+                    Jugar(false);
+                    break;
+                case ConsoleKey.NumPad3:
                     Salir();
                     break;
                 default:
@@ -106,7 +109,8 @@ namespace Jueguito
                     Console.WriteLine("Bienvenidos!!");
                 }
                 Console.WriteLine("Usa las flechas para mover el personaje y para salir presiona otra tecla cualquiera");
-                Console.WriteLine("Lives: " + player01.Lives);
+                string HUDVidas = unJugador ? $"Lives: {player01.Lives}" : $"Lives: {player01.Lives}\t\t\tLives: { player02.Lives}";
+                Console.WriteLine(HUDVidas);
 
                 // dibujado...
                 player01.Draw();
@@ -171,7 +175,7 @@ namespace Jueguito
                     if (Colision(player01, enemigos[i]))
                     {
                         player01.RestarVida();
-                        player01.MoveToPrevPos();
+                        player01.MoverPosInicial();
                     }
                 }
                 for (int i = 0; i < obstaculos.Length; i++)
@@ -179,12 +183,31 @@ namespace Jueguito
                     if (Colision(player01, obstaculos[i]))
                     {
                         player01.RestarVida();
-                        player01.MoveToPrevPos();
+                        player01.MoverPosInicial();
+                    }
+                }
+                if (!unJugador)
+                {
+                    foreach (var enemigo in enemigos)
+                    {
+                        if (Colision(player02, enemigo))
+                        {
+                            player02.RestarVida();
+                            player02.MoverPosInicial();
+                        }
+                    }
+                    foreach (var obstaculo in obstaculos)
+                    {
+                        if (Colision(player02, obstaculo))
+                        {
+                            player02.RestarVida();
+                            player02.MoverPosInicial();
+                        }
                     }
                 }
 
                 System.Threading.Thread.Sleep(150);
-                if (player01.CheckGameOver())
+                if (player01.CheckGameOver() || player02.CheckGameOver())
                 {
                     gana = false;
                     FinalizarJuego(gana);

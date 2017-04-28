@@ -11,21 +11,23 @@ namespace Jueguito
         public Jugador(string _name = "Sin nombre", int _posX = 0, int _posY = 3)
         {
             Name = _name;
-            PosX = _posX;
-            PosY = _posY;
+            PosX = PosInicialX = _posX;
+            PosY = PosInicialY = _posY;
             Figure = 'X';
             //nuevo
             Lives = 3;
-            PrevPosX = PosX;
-            PrevPosY = PosY;
+            //PrevPosX = PosX;
+            //PrevPosY = PosY;
             //
         }
 
         // propiedades
         public string Name { get; set; }
+        public int PosInicialX { get; set; }
+        public int PosInicialY { get; set; }
         //nuevo
         public int Lives { get; set; }
-        public int PrevPosX, PrevPosY;
+        //public int PrevPosX, PrevPosY;
         //
 
         #region metodos
@@ -34,30 +36,22 @@ namespace Jueguito
         public void MoverDerecha()
         {
             if (PosX < 80)
-                PrevPosX = PosX;
-            PrevPosY = PosY;
-            PosX++;
+                PosX++;
         }
         public void MoverIzquierda()
         {
             if (PosX > 0)
-                PrevPosX = PosX;
-            PrevPosY = PosY;
-            PosX--;
+                PosX--;
         }
         public void MoverArriba()
         {
             if (PosY > 3)
-                PrevPosX = PosX;
-            PrevPosY = PosY;
-            PosY--;
+                PosY--;
         }
         public void MoverAbajo()
         {
             if (PosY < 20)
-                PrevPosX = PosX;
-            PrevPosY = PosY;
-            PosY++;
+                PosY++;
         }
         //nuevo
         public void RestarVida()
@@ -77,10 +71,10 @@ namespace Jueguito
             }
         }
 
-        public void MoveToPrevPos()
+        public void MoverPosInicial()
         {
-            PosX = PrevPosX;
-            PosY = PrevPosY;
+            PosX = PosInicialX;
+            PosY = PosInicialY;
         }
         //
         #endregion
