@@ -39,7 +39,9 @@ namespace Jueguito
                 case ConsoleKey.NumPad3:
                     Salir();
                     break;
+                case ConsoleKey.Spacebar:
                 default:
+                    Jugar(true);
                     // falta implementar
                     break;
             }
@@ -74,7 +76,9 @@ namespace Jueguito
         }
 
         public void Jugar(bool unJugador)
-        {
+        {            
+            bool CurrentBulletDestroyed;
+
             jugando = true;
             FileStream fs;
             BinaryFormatter formatter;
@@ -136,6 +140,13 @@ namespace Jueguito
                 {
                     item.Draw();
                 }
+                if (player01.Bullets.Count>0)
+                {
+                    for (int i = 0; i < player01.Bullets.Count; i++)
+                    {
+                        player01.Bullets[i].Draw();
+                    }
+                }
 
                 // inputs
                 if (Console.KeyAvailable)
@@ -179,6 +190,9 @@ namespace Jueguito
                             formatter.Serialize(fs, pos);
                             fs.Close();
                             Salir();
+                                break;
+                        case ConsoleKey.Spacebar:
+                            player01.Shoot();
                             break;
                         default:
                             jugando = false;
@@ -186,9 +200,18 @@ namespace Jueguito
                     }
                 }
 
-                for (int i = 0; i < enemigos.Length; i++)
+                //movements
+                /*for (int i = 0; i < enemigos.Length; i++)
                 {
                     enemigos[i].MoverseAleatorio();
+                }*/
+
+                if (player01.Bullets.Count > 0)
+                {
+                    for (int i = 0; i < player01.Bullets.Count; i++)
+                    {
+                        player01.Bullets[i].Movement();
+                    }
                 }
 
                 // colisiones
@@ -237,6 +260,44 @@ namespace Jueguito
                     }
                 }
 
+                if (player01.Bullets.Count > 0)
+                {
+                    for (int i = 0; i < player01.Bullets.Count; i++)
+                    {
+                        CurrentBulletDestroyed = false;
+                        if (player01.Bullets[i].OutOfBounds())
+                        {
+                            player01.Bullets.RemoveAt(i);
+                        }
+                        else
+                        {
+                            for (int j = 0; j < obstaculos.Length; j++)
+                            {
+                                if (Colision(player01.Bullets[i], obstaculos[j]))
+                                {
+                                    CurrentBulletDestroyed = true;
+                                    player01.Bullets.RemoveAt(i);
+                                    break;
+                                }
+                            }
+
+                            if (!CurrentBulletDestroyed)
+                            {
+                                for (int k = 0; k < enemigos.Length; k++)
+                                {
+                                    if (Colision(player01.Bullets[i], enemigos[k]))
+                                    {
+                                        player01.Bullets.RemoveAt(i);
+                                        //aca se podria hacer que se eliminen los enemigos, seria mas simple
+                                        // si se reemplaza el array por una lista como hice con las balas                                       
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                //
                 System.Threading.Thread.Sleep(150);
                 if (player01.CheckGameOver() || player02.CheckGameOver())
                 {
@@ -253,8 +314,7 @@ namespace Jueguito
             {
                 return true;
             }
-            else
-            {
+            else{
                 return false;
             }
         }

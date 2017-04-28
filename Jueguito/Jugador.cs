@@ -16,8 +16,7 @@ namespace Jueguito
             Figure = 'X';
             //nuevo
             Lives = 3;
-            //PrevPosX = PosX;
-            //PrevPosY = PosY;
+            direction = Direction.Right;
             //
         }
 
@@ -27,7 +26,7 @@ namespace Jueguito
         public int PosInicialY { get; set; }
         //nuevo
         public int Lives { get; set; }
-        //public int PrevPosX, PrevPosY;
+        public List<Bullet> Bullets = new List<Bullet>();
         //
 
         #region metodos
@@ -36,22 +35,34 @@ namespace Jueguito
         public void MoverDerecha()
         {
             if (PosX < 80)
+            { 
                 PosX++;
+                direction = Direction.Right;
+            }
         }
         public void MoverIzquierda()
         {
             if (PosX > 0)
+            {
                 PosX--;
+                direction = Direction.Left;
+            }
         }
         public void MoverArriba()
         {
             if (PosY > 3)
+            { 
                 PosY--;
+                direction = Direction.Up;
+            }
         }
         public void MoverAbajo()
         {
             if (PosY < 20)
+            {
                 PosY++;
+                direction = Direction.Down;
+            }
         }
         //nuevo
         public void RestarVida()
@@ -75,6 +86,12 @@ namespace Jueguito
         {
             PosX = PosInicialX;
             PosY = PosInicialY;
+        }
+
+        public void Shoot()
+        {
+            Bullet bullet = new Bullet(PosX,PosY,direction);
+            Bullets.Add(bullet);
         }
         //
         #endregion

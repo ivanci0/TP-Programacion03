@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bullet.cs" />
     <Compile Include="DrawingObject.cs" />
     <Compile Include="Enemigo.cs" />
     <Compile Include="GameOver.cs" />

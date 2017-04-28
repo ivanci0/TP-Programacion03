@@ -21,7 +21,8 @@ namespace Jueguito
         public int PosX { get; set; }
         public int PosY { get; set; }
         public bool Existe { get; set; }
-
+        public enum Direction { Left, Right, Up, Down, None }
+        public Direction direction;
         // metodo
         public virtual void Draw()
         {
