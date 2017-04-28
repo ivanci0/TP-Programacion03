@@ -48,6 +48,7 @@
     <Compile Include="GameOver.cs" />
     <Compile Include="Juego.cs" />
     <Compile Include="Jugador.cs" />
+    <Compile Include="Mensaje.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Obstaculo.cs" />
     <Compile Include="Program.cs" />

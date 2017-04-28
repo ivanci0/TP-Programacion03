@@ -10,6 +10,8 @@ namespace Jueguito
     {
         static void Main(string[] args)
         {
+            Mensaje MensajeBienvenida = new Mensaje();
+            MensajeBienvenida.MostrarMensaje();
             Juego Juego = new Juego();
             Juego.Iniciar();
         }
