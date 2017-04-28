@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,23 +16,15 @@ namespace Jueguito
         private bool gana;
         int puntaje = 0;
 
+        [Serializable]
+        struct Posicion
+        {
+            public int posX;
+            public int posY;
+        }
+
         public void Iniciar()
         {
-            //Console.WriteLine("Ingrese un mensaje de bienvenida: ");
-            //string textoBienvenida = Convert.ToString(Console.ReadLine());
-            //string pathString = @"c:\bienvenida.txt";
-            /*
-            if (!System.IO.File.Exists(pathString))
-            {
-                System.IO.FileStream fs = System.IO.File.Create(pathString);   // falta terminar
-                System.IO.File.WriteAllText(pathString, textoBienvenida);
-            }
-            else
-            {
-                System.IO.File.WriteAllText(pathString, textoBienvenida);
-            }
-            */
-            // System.IO.File.WriteAllText(@"C:\Users\Public\TestFolder\WriteText.txt", textoBienvenida);
             menu.Draw();
             tecla = Console.ReadKey();
             
@@ -82,7 +76,18 @@ namespace Jueguito
         public void Jugar(bool unJugador)
         {
             jugando = true;
-            Jugador player01 = new Jugador("Ivan");
+            FileStream fs;
+            BinaryFormatter formatter;
+            Posicion pos;
+            pos.posX = pos.posY = 0;
+            if (File.Exists("posicion.dat"))
+            {
+                fs = File.OpenRead("posicion.dat");
+                formatter = new BinaryFormatter();
+                pos = (Posicion)formatter.Deserialize(fs);
+                fs.Close();
+            }
+            Jugador player01 = new Jugador("Ivan", pos.posX, pos.posY);
             Jugador player02 = new Jugador("otro", 20, 10);
             Enemigo[] enemigos =
             {
@@ -162,6 +167,18 @@ namespace Jueguito
                             break;
                         case ConsoleKey.S:
                             player02.MoverAbajo();
+                            break;
+                        case ConsoleKey.Escape:
+                            pos.posX = player01.PosX;
+                            pos.posY = player01.PosY;
+                            if (!File.Exists("posicion.dat"))
+                                fs = File.Create("posicion.dat");
+                            else
+                                fs = File.OpenWrite("posicion.dat");
+                            formatter = new BinaryFormatter();
+                            formatter.Serialize(fs, pos);
+                            fs.Close();
+                            Salir();
                             break;
                         default:
                             jugando = false;
