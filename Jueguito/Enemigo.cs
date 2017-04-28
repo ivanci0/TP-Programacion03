@@ -18,7 +18,7 @@ namespace Jueguito
         }
         public Enemigo(int _posX, int _posY)
         {
-            Figure = 'O';
+            Figure = 'E';
             PosX = _posX;
             PosY = _posY;
         }

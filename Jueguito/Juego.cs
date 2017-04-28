@@ -12,6 +12,7 @@ namespace Jueguito
         ConsoleKeyInfo tecla;
         Menu menu = new Menu();
         private bool gana;
+        int puntaje = 0;
 
         public void Iniciar()
         {
@@ -107,17 +108,10 @@ namespace Jueguito
             while (jugando)
             {
                 Console.Clear();
-                if (unJugador)
-                {
-                    Console.WriteLine($"Bienvenido {player01.Name}!!!");
-                }
-                else
-                {
-                    Console.WriteLine("Bienvenidos!!");
-                }
-                Console.WriteLine("Usa las flechas para mover el personaje y para salir presiona otra tecla cualquiera");
+                //Console.WriteLine("Usa las flechas para mover el personaje y para salir presiona otra tecla cualquiera");
                 string HUDVidas = unJugador ? $"Lives: {player01.Lives}" : $"Lives: {player01.Lives}\t\t\tLives: { player02.Lives}";
-                Console.WriteLine(HUDVidas);
+                string HUDPuntaje = $"\t\t\t\t\t\t\tPuntaje: {puntaje}";
+                Console.WriteLine(HUDVidas + HUDPuntaje);
 
                 // dibujado...
                 player01.Draw();
@@ -197,6 +191,15 @@ namespace Jueguito
                         player01.MoverPosInicial();
                     }
                 }
+                foreach (var item in items)
+                {
+                    if (Colision(player01, item))
+                    {
+                        puntaje++;
+                        item.Kill();
+                    }
+                }
+                // colisiones para 2 jugadores
                 if (!unJugador)
                 {
                     foreach (var enemigo in enemigos)
@@ -229,10 +232,8 @@ namespace Jueguito
 
         public bool Colision(DrawingObject obj1, DrawingObject obj2)
         {
-            if (obj1.PosX == obj2.PosX && obj1.PosY == obj2.PosY)
+            if (obj1.PosX == obj2.PosX && obj1.PosY == obj2.PosY && obj1.Existe && obj2.Existe)
             {
-                //jugando = false;
-
                 return true;
             }
             else
