@@ -84,6 +84,7 @@ namespace Jueguito
             BinaryFormatter formatter;
             Posicion pos;
             pos.posX = pos.posY = 0;
+            puntaje = 0;
             if (File.Exists("posicion.dat"))
             {
                 fs = File.OpenRead("posicion.dat");
@@ -201,10 +202,10 @@ namespace Jueguito
                 }
 
                 //movements
-                /*for (int i = 0; i < enemigos.Length; i++)
+                for (int i = 0; i < enemigos.Length; i++)
                 {
                     enemigos[i].MoverseAleatorio();
-                }*/
+                }
 
                 if (player01.Bullets.Count > 0)
                 {
